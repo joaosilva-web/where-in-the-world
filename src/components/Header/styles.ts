@@ -11,14 +11,25 @@ export const Header = styled.header`
     height: 80px;
     width: 100%;
 
-    button {
+    label {
+        cursor: pointer;
+
+        input[type="checkbox"] {
         width: 85px;
         display: flex;
         align-items: baseline;
         justify-content: space-between;
 
+        -webkit-appearance: none;
+        appearance: none;
+        background-color: #fff;
+        margin: 0;
+        
+       
+
         p{
             font-weight: 800;
         }
+    }
     }
 `

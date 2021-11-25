@@ -9,7 +9,8 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     html {
-        background: hsl(0, 0%, 98%);
+        background: ${props => props.theme.colors.primary};
+        color: ${props => props.theme.colors.text};
     }
 
     button {

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 interface flagProps{
+    key?: string;
     flag?: string;
 }
 
@@ -31,7 +32,8 @@ export const SearchInput = styled.div`
 
     height: 50px;
     width: 500px;
-    background: hsl(0, 0%, 100%);
+    background: ${props => props.theme.colors.secondary};
+    color: ${props => props.theme.colors.inputText};
 
     margin-bottom: 60px;
 
@@ -64,7 +66,7 @@ export const Select = styled.details`
     position: relative;
     width: 200px;
     height: 50px;
-    background: hsl(0, 0%, 100%);
+    background:${props => props.theme.colors.secondary};
     border-radius: 8px;
     padding: 0 10px;
     
@@ -77,13 +79,14 @@ export const Select = styled.details`
         display: flex;
         flex-direction: column;
         
-        background: hsl(0, 0%, 100%);
+        background: ${props => props.theme.colors.secondary};
         border-radius: 8px;
         padding: 10px;
         list-style: none;
         
 
         button {
+            color: ${props => props.theme.colors.text};
             cursor: pointer;
         }
     }
@@ -104,26 +107,12 @@ export const Select = styled.details`
 `
 
 
-export const CountryCard = styled.div<flagProps>`
+export const CountryCard = styled.div`
     width: 300px;
     min-height: 400px;
-    background: hsl(0, 0%, 100%);
+    background: ${props => props.theme.colors.secondary};
     border-radius: 8px;
     box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.2);
-
-    .flag {
-        height: 200px;
-        width: 100%;
-
-        border-radius: 8px 8px 0 0;
-
-        background-image: url(${props => props.flag});
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-
-        box-shadow: 0px 9px 19px -4px rgba(0,0,0,0.1);
-    }
 
     .cardContent {
         width: 80%;
@@ -137,4 +126,24 @@ export const CountryCard = styled.div<flagProps>`
             line-height: 28px;
         }
     }
+`
+
+
+export const Flag = styled.div<flagProps>`
+        height: 200px;
+        width: 100%;
+
+        border-radius: 8px 8px 0 0;
+
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        box-shadow: 0px 9px 19px -4px rgba(0,0,0,0.1);
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 `

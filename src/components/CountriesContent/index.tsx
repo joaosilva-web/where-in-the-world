@@ -5,6 +5,8 @@ import * as S from "./styles";
 import * as Component from "../../styles/globalComponents/styles";
 import { FaChevronDown, FaSearch } from "react-icons/fa";
 
+import loadingGif from "../../images/loading.gif";
+
 interface InterfaceCountry {
     name: string,
     capital: string,
@@ -28,12 +30,14 @@ interface InterfaceCountry {
 
 export function CountriesContent() {
     const [country, setCountry] = useState<InterfaceCountry[]>([] as InterfaceCountry[]);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
       async function loadCountries() {
         const { data } = await api.get<InterfaceCountry[]>(`all`)
   
         if(data) {
+            setLoading(false);
           console.log(data);
           setCountry(data);
         }
@@ -71,23 +75,29 @@ export function CountriesContent() {
                     </S.Select>
                 </header>
 
-                <section>
-                {
-                    country.map((country) => (
-                        <S.CountryCard key={country.translations.por.official} flag={country.flags.svg}>
-                            <div className="flag">
+                {!loading ? 
+                    <section>
+                    {
+                        country.map((country) => (
+                            country.independent?
+                            <S.CountryCard key={country.translations.por.official}>
+                                <S.Flag>
+                                    <img src={country.flags.svg} alt="" />
+                                </S.Flag>
+                                <div className="cardContent">
+                                <h2>{country.translations.por.common}</h2>
+                                <p><strong>Population: </strong>{country.population.toLocaleString()}</p>
+                                <p><strong>Region: </strong> {country.region}</p>
+                                <p><strong>Capital: </strong> {country.capital}</p>
+                                </div>
+                            </S.CountryCard>
+                            : null
+                        ))
+                    }
+                    </section>
 
-                            </div>
-                            <div className="cardContent">
-                            <h2>{country.translations.por.common}</h2>
-                            <p><strong>Population: </strong>{country.population.toLocaleString()}</p>
-                            <p><strong>Region: </strong> {country.region}</p>
-                            <p><strong>Capital: </strong> {country.capital}</p>
-                            </div>
-                        </S.CountryCard>
-                    ))
+                    : <img src={loadingGif} alt="" />
                 }
-                </section>
             </Component.Container>
         </S.CountriesContent>
     );
