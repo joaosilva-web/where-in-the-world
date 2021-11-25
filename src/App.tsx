@@ -6,7 +6,7 @@ import { GlobalStyle } from './styles/globalStyle';
 import { useState } from 'react';
 
 import light from './styles/themes/light'
-import dark from './styles/themes/dark'
+import dark  from './styles/themes/dark'
 
 function App() {
   const [theme, setTheme] = useState(light);
