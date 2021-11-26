@@ -30,6 +30,7 @@ interface InterfaceCountry {
 
 export function CountriesContent() {
     const [country, setCountry] = useState<InterfaceCountry[]>([] as InterfaceCountry[]);
+    const [name, setName] = useState<string>();
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
@@ -51,14 +52,28 @@ export function CountriesContent() {
         setCountry(data);
     }
     }
+
+    async function searchByName() {   
+        if(name === null) {
+            const { data } = await api.get<InterfaceCountry[]>(`all`)
+        } else {
+            const { data } = await api.get<InterfaceCountry[]>(`name/${name}`)
+        if(data){
+            setCountry(data);
+            console.log(country);
+        }
+        }
+        }
+
+
     return(
         <S.CountriesContent>
             <Component.Container flexDirection="column">
                 <header>
                     <S.SearchInput>
                         <label>
-                            <FaSearch color="gray"/>
-                            <input type="text" placeholder="Search for a Country..."/>
+                            <button onClick={() => searchByName()}><FaSearch color="gray"/></button>
+                            <input type="text" onChange={(e) => setName(e.target.value)} placeholder="Search for a Country..."/>
                         </label>
 
                         
